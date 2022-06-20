@@ -1,0 +1,26 @@
+.navbar{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 512px;
+    height: 40px;
+    padding: 25px 16px 19px;
+    position: relative;
+    box-sizing: border-box;
+    &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        height: 1px;
+        background: #D6D6D6;
+        top: 49px;
+        left: 0;
+    }
+    .navbar__logo {
+        width: 16px;
+    }
+    .navbar__title {
+        font-size: 30px;
+    }
+}
