@@ -146,6 +146,14 @@ html body #root .App {
   border: 2px solid #878A8C;
 }
 
+.table .words .word .word__letter.correct {
+  background-color: #6AAA64;
+}
+
+.table .words .word .word__letter.wrong {
+  background-color: #787C7E;
+}
+
 @-webkit-keyframes pop {
   0% {
     -webkit-transform: scale(0.8);

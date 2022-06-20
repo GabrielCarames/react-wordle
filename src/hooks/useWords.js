@@ -1,16 +1,17 @@
 import { useEffect, useMemo, useState } from "react"
 import { wordListArray } from "./wordsList"
 
-export const useWords = (currentWord, setCurrentWord, words, setWords, wordsDivRef) => {
+export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords, wordsDivRef) => {
+    const [insertedWords, setInsertedWords] = useState([])
     const [switchShake, setSwitchShake] = useState(false)
-    const wordsList = useMemo(() => wordListArray(), []) 
+    const {wordsList, winnerWord} = useMemo(() => wordListArray(), []) 
+    let timeoutId = 0
 
     useEffect(() => {
         keydownEvent()
-    }, [words, currentWord, switchShake])
+    }, [words, currentWordIndex, switchShake])
     
     const keydownEvent = () => {
-        let timeoutId = 0
         window.addEventListener("keydown", (event) => {
             if(event.repeat) return
             clearTimeout(timeoutId)
@@ -19,16 +20,7 @@ export const useWords = (currentWord, setCurrentWord, words, setWords, wordsDivR
                 const currentLetterIndex = getCurrentLetterIndex()
                 let wordsCopy = words 
                 switch (key) {
-                    case "Enter":
-                        const finishedWord = checkWord()
-                        if(finishedWord !== -1) setCurrentWord(currentWord + 1)
-                        else {
-                            wordsDivRef.current.childNodes[currentWord].className = "word shake"
-                            setTimeout(() => {
-                                wordsDivRef.current.childNodes[currentWord].className = "word"
-                                setSwitchShake(!switchShake)
-                            }, 200)
-                        }
+                    case "Enter": handleEnter()
                         break;
                     case "Backspace": removeLetterFromWord(currentLetterIndex, wordsCopy)
                         break;
@@ -39,26 +31,67 @@ export const useWords = (currentWord, setCurrentWord, words, setWords, wordsDivR
         }, {once : true})
     }
     
+    const getMatchingLetters = () => {
+        words[currentWordIndex].filter((letter, index) => {
+            console.log(letter, winnerWord.split('')[index])
+            letter === winnerWord.split('')[index]
+        })
+        
+
+        setInsertedWords([...insertedWords, words[currentWordIndex].filter((letter, index) => letter === winnerWord.split('')[index])])
+    }
+
     const addLetterToWord = (currentLetterIndex, letter, wordsCopy, event) => {
         if(event.key.length === 1 && event.key.match(/[a-z]/i)) {
-            wordsCopy[currentWord][currentLetterIndex] = letter
+            wordsCopy[currentWordIndex][currentLetterIndex] = letter
             setWords([...wordsCopy])
         }
     }
 
     const removeLetterFromWord = (currentLetterIndex, wordsCopy) => {
-        if(currentLetterIndex === -1) wordsCopy[currentWord][words[currentWord].length -1] = ""
-        else wordsCopy[currentWord][currentLetterIndex -1] = ""
+        if(currentLetterIndex === -1) wordsCopy[currentWordIndex][words[currentWordIndex].length -1] = ""
+        else wordsCopy[currentWordIndex][currentLetterIndex -1] = ""
         setWords([...wordsCopy])
     }
 
-    const getCurrentLetterIndex = () => words[currentWord].findIndex(letter => letter === "")
+    const getCurrentLetterIndex = () => words[currentWordIndex].findIndex(letter => letter === "")
     
     const checkWord = () => {
-        const wordToCheck = words[currentWord].join("")
-        const wordIndex = wordsList.findIndex(word => word === wordToCheck)
-        return wordIndex
+        const wordToCheck = words[currentWordIndex].join("")
+        const foundWord = wordsList.find(word => word === wordToCheck)
+        if(foundWord) {
+            getMatchingLetters(foundWord)
+            return true
+        } else return false 
     }
 
-    return {}
+    const handleEnter = () => {
+        const foundWord = checkWord()
+        foundWord ? setCurrentWordIndex(currentWordIndex + 1) : wrongWord()
+    }
+
+    const wrongWord = () => {
+        wordsDivRef.current.childNodes[currentWordIndex].className = "word shake"
+        setTimeout(() => {
+            wordsDivRef.current.childNodes[currentWordIndex].className = "word"
+            setSwitchShake(!switchShake)
+        }, 200)
+    }
+
+    const handleWordClassName = (letter) => {
+        if(currentWordIndex >= 1) {
+            console.log("holadsadasd", insertedWords[currentWordIndex -1])
+            if(insertedWords[currentWordIndex -1].find(letter => letter === letter)) {
+                return "word__letter correct"
+            } else return "word__letter wrong"
+        } else {
+            if(letter.length >= 1) {
+                return "word__letter active"
+            } else {
+                return "word__letter"
+            }
+        }
+    }
+
+    return {handleWordClassName}
 }

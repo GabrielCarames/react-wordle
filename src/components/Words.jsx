@@ -2,7 +2,7 @@ import { useRef, useState } from "react"
 import { useWords } from "../hooks/useWords"
 
 function Words() {
-    const [currentWord, setCurrentWord] = useState(0)
+    const [currentWordIndex, setCurrentWordIndex] = useState(0)
     const [words, setWords] = useState([
         ["", "", "", "", ""],
         ["", "", "", "", ""],
@@ -12,7 +12,7 @@ function Words() {
         ["", "", "", "", ""]
     ])
     const wordsDivRef = useRef()
-    useWords(currentWord, setCurrentWord, words, setWords, wordsDivRef)
+    const {handleWordClassName} = useWords(currentWordIndex, setCurrentWordIndex, words, setWords, wordsDivRef)
 
     return (
         <section className="table">
@@ -22,7 +22,7 @@ function Words() {
                         <ul className="word" key={index}>
                             {
                                 word.map((letter, index) =>
-                                    <li className={letter.length >= 1 ? "word__letter active" : "word__letter"} key={index}>
+                                    <li className={handleWordClassName(letter)} key={index}>
                                         {letter}
                                     </li>
                                 )

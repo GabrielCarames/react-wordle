@@ -1,5 +1,4 @@
 export const wordListArray = () => {
-    console.log("hola")
     const wordsList = ["ababa", "abaca",
         "abaco",
         "abada",
@@ -12030,6 +12029,7 @@ export const wordListArray = () => {
         "Ã±utos",
         "Ã±uzco",
         "Ã±uÃ±oa"]
-        console.log(wordsList)
-    return wordsList
+    const winnerWord = wordsList[Math.floor(Math.random() * (12033 - 0) + 0)]
+    console.log(wordsList, winnerWord)
+    return {wordsList, winnerWord}
 }

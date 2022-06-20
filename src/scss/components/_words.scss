@@ -36,6 +36,12 @@
                     animation: 120ms linear 0s 1 normal none running pop;
                     border: 2px solid #878A8C;
                 }
+                &.correct {
+                    background-color: #6AAA64;
+                }
+                &.wrong {
+                    background-color: #787C7E;
+                }
             }
         }
     }
