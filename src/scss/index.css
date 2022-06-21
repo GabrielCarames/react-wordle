@@ -111,11 +111,42 @@ html body #root .App {
   margin: 0;
   padding: 0;
   list-style: none;
+  position: relative;
 }
 
 .table .words .word.shake {
   -webkit-animation: shake .5s linear 1;
           animation: shake .5s linear 1;
+}
+
+.table .words .word.success .word__letter {
+  -webkit-animation: appear 1s;
+          animation: appear 1s;
+}
+
+.table .words .word.success .word__letter:nth-of-type(1) {
+  -webkit-animation-delay: 0;
+          animation-delay: 0;
+}
+
+.table .words .word.success .word__letter:nth-of-type(2) {
+  -webkit-animation-delay: 100ms;
+          animation-delay: 100ms;
+}
+
+.table .words .word.success .word__letter:nth-of-type(3) {
+  -webkit-animation-delay: 200ms;
+          animation-delay: 200ms;
+}
+
+.table .words .word.success .word__letter:nth-of-type(4) {
+  -webkit-animation-delay: 300ms;
+          animation-delay: 300ms;
+}
+
+.table .words .word.success .word__letter:nth-of-type(5) {
+  -webkit-animation-delay: 400ms;
+          animation-delay: 400ms;
 }
 
 .table .words .word .word__letter {
@@ -141,27 +172,29 @@ html body #root .App {
 }
 
 .table .words .word .word__letter.active {
-  -webkit-animation: 120ms linear 0s 1 normal none running pop;
-          animation: 120ms linear 0s 1 normal none running pop;
   border: 2px solid #878A8C;
 }
 
-.table .words .word .word__letter.correct {
-  background-color: #6AAA64;
-  color: white;
-  border: 2px solid #6AAA64;
+@-webkit-keyframes appear {
+  0% {
+    -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
 }
 
-.table .words .word .word__letter.wrong {
-  background-color: #787C7E;
-  color: white;
-  border: 2px solid #787C7E;
-}
-
-.table .words .word .word__letter.almost {
-  background-color: #C9B458;
-  color: white;
-  border: 2px solid #C9B458;
+@keyframes appear {
+  0% {
+    -webkit-transform: translateY(-30px);
+            transform: translateY(-30px);
+  }
+  100% {
+    -webkit-transform: translateY(0);
+            transform: translateY(0);
+  }
 }
 
 @-webkit-keyframes pop {

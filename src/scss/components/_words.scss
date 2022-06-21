@@ -16,8 +16,19 @@
             margin: 0;
             padding: 0;
             list-style: none;
+            position: relative;
             &.shake {
                 animation: shake .5s linear 1;
+            }
+            &.success {
+                .word__letter {
+                    animation: appear 1s;
+                    &:nth-of-type(1) {animation-delay: 0}
+                    &:nth-of-type(2) {animation-delay: 100ms}
+                    &:nth-of-type(3) {animation-delay: 200ms}
+                    &:nth-of-type(4) {animation-delay: 300ms}
+                    &:nth-of-type(5) {animation-delay: 400ms}
+                }
             }
             .word__letter {
                 display: flex;
@@ -33,26 +44,19 @@
                 border: 2px solid #D3D6DA;
                 box-sizing: border-box;
                 &.active {
-                    animation: 120ms linear 0s 1 normal none running pop;
                     border: 2px solid #878A8C;
-                }
-                &.correct {
-                    background-color: #6AAA64;
-                    color: white;
-                    border: 2px solid #6AAA64;
-                }
-                &.wrong {
-                    background-color: #787C7E;
-                    color: white;
-                    border: 2px solid #787C7E;
-                }
-                &.almost {
-                    background-color: #C9B458;
-                    color: white;
-                    border: 2px solid #C9B458;
                 }
             }
         }
+    }
+}
+
+@keyframes appear {
+    0% {
+        transform: translateY(-30px);
+    }
+    100% {
+        transform: translateY(0);
     }
 }
 
