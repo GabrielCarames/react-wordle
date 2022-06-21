@@ -32,13 +32,20 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
     }
     
     const getMatchingLetters = () => {
-        words[currentWordIndex].filter((letter, index) => {
-            console.log(letter, winnerWord.split('')[index])
-            letter === winnerWord.split('')[index]
+        const wordInserted = words[currentWordIndex]
+        let winnerWordCopy = winnerWord.split('')
+        let matches = []
+        wordInserted.forEach(letter => {
+            let indexOfFoundLetter = null
+            if(matches.includes(letter)) indexOfFoundLetter = indexOfFoundLetter.lastIndexOf(letter)
+            else indexOfFoundLetter = winnerWordCopy.indexOf(letter)
+            console.log("jarra", indexOfFoundLetter)
+            if(indexOfFoundLetter !== -1) { //ahora queda decir si ademas de encontrar la letra, indicar en que index se encuentra
+                matches.push({letter: letter, index: indexOfFoundLetter})
+                winnerWordCopy.splice(indexOfFoundLetter, 1, "")
+            }
         })
-        
-
-        setInsertedWords([...insertedWords, words[currentWordIndex].filter((letter, index) => letter === winnerWord.split('')[index])])
+        setInsertedWords([...insertedWords, matches])
     }
 
     const addLetterToWord = (currentLetterIndex, letter, wordsCopy, event) => {
@@ -78,18 +85,22 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
         }, 200)
     }
 
-    const handleWordClassName = (letter) => {
-        if(currentWordIndex >= 1) {
-            console.log("holadsadasd", insertedWords[currentWordIndex -1])
-            if(insertedWords[currentWordIndex -1].find(letter => letter === letter)) {
-                return "word__letter correct"
-            } else return "word__letter wrong"
+    const getLetterAndIndexMatches = (letter, index) => {
+        console.log("insertedWords", insertedWords, insertedWords.length)
+        return insertedWords[currentWordIndex -insertedWords.length].find(insertedLetter => {
+            return index ? insertedLetter.letter === letter && insertedLetter.index === index : insertedLetter.letter === letter
+        })
+    }
+
+    const handleWordClassName = (letter, letterIndex, wordIndex) => {
+        console.log("letter", letter, "letterIndex", letterIndex, "wordIndex", wordIndex, "currentWordIndex", currentWordIndex)
+        if(wordIndex <= currentWordIndex-1 && currentWordIndex >= 1) {
+            if(getLetterAndIndexMatches(letter, letterIndex)) return "word__letter correct"
+            else if(getLetterAndIndexMatches(letter)) return "word__letter almost"
+            else return "word__letter wrong"
         } else {
-            if(letter.length >= 1) {
-                return "word__letter active"
-            } else {
-                return "word__letter"
-            }
+            if(letter !== "") return "word__letter active"
+            else return "word__letter"
         }
     }
 

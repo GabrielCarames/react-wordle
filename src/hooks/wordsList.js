@@ -12029,7 +12029,8 @@ export const wordListArray = () => {
         "Ã±utos",
         "Ã±uzco",
         "Ã±uÃ±oa"]
-    const winnerWord = wordsList[Math.floor(Math.random() * (12033 - 0) + 0)]
+    // const winnerWord = wordsList[Math.floor(Math.random() * (12033 - 0) + 0)]
+    const winnerWord = "manar"
     console.log(wordsList, winnerWord)
     return {wordsList, winnerWord}
 }

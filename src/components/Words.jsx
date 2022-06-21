@@ -18,11 +18,11 @@ function Words() {
         <section className="table">
             <div className="words" ref={wordsDivRef}>
                 {
-                    words.map((word, index) => 
-                        <ul className="word" key={index}>
+                    words.map((word, wordIndex) => 
+                        <ul className="word" key={wordIndex}>
                             {
-                                word.map((letter, index) =>
-                                    <li className={handleWordClassName(letter)} key={index}>
+                                word.map((letter, letterIndex) =>
+                                    <li className={handleWordClassName(letter, letterIndex, wordIndex)} key={letterIndex}>
                                         {letter}
                                     </li>
                                 )
