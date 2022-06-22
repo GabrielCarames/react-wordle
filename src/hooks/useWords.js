@@ -2,11 +2,19 @@ import { useEffect, useMemo, useState } from "react"
 import { useKeyboard } from "./useKeyboard"
 import { wordListArray } from "./wordsList"
 
-export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords, wordsDivRef) => {
+export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords, wordsDivRef, setFinishedGame, insertedWords, setInsertedWords) => {
     const [switchShake, setSwitchShake] = useState(false)
     const {wordsList, winnerWord} = useMemo(() => wordListArray(), []) 
     const {setCurrentKey} = useKeyboard()
     let timeoutId = 0
+
+    useEffect(() => {
+        currentWordIndex >= 1 && checkGameFinished()
+    }, [currentWordIndex])
+    
+    const checkGameFinished = () => {
+        if(words[currentWordIndex-1].every(letter => letter.bgColor === "green")) setFinishedGame({result: "win", state: true})
+    }
 
     useEffect(() => {
         keydownEvent()
@@ -85,6 +93,8 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
             } else currentLetterInWords.bgColor = "grey"
         })
         wordAnimation()
+        const insertedWord = words[currentWordIndex].map(letter => letter)
+        setInsertedWords([...insertedWords, insertedWord])
         setCurrentWordIndex(currentWordIndex + 1)
     }
 

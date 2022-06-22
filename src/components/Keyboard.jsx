@@ -1,17 +1,31 @@
 import { useKeyboard } from "../hooks/useKeyboard"
+import { useWords } from "../hooks/useWords"
 import deleteIcon from '../icons/delete.svg'
-export default function Keyboard() {
+
+export default function Keyboard({insertedWords}) {
     const {keyboard} = useKeyboard()
-    
+    const {handleLetterStyle} = useWords()
+
+    const keyUsed = key => {
+        let letter = null
+        for(let i = 0; i < insertedWords.length; i++) {
+            const result = insertedWords[i].find(letter => letter.letter === key)
+            if(result) {
+                letter = result
+                break
+            }
+        }
+        if(letter) return handleLetterStyle(letter.bgColor)
+    }
     return (
         <div className="keyboard">
             {
-                keyboard.map((row, index) => 
-                    <div className="row" key={index}>
+                keyboard.map((row, keyboardIndex) => 
+                    <div className="row" key={keyboardIndex}>
                         {
-                            row.map((key, index) =>
-                                key === "borrar" ? <button className="keyboard__key" key={index}><img className="keyboard__key--delete" src={deleteIcon} alt="Borrar letra"/></button>
-                                : <button className="keyboard__key" key={index}>{key}</button>
+                            row.map((key, rowIndex) =>
+                                key === "borrar" ? <button className="keyboard__key" key={rowIndex}><img className="keyboard__key--delete" src={deleteIcon} alt="Borrar letra"/></button>
+                                : <button className="keyboard__key" style={keyUsed(key)} key={rowIndex}>{key}</button>
                             )
                         }
                     </div>

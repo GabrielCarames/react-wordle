@@ -1,18 +1,10 @@
 import { useRef, useState } from "react"
 import { useWords } from "../hooks/useWords"
 
-export default function Words() {
+export default function Words({words, setWords, setFinishedGame, insertedWords, setInsertedWords}) {
     const [currentWordIndex, setCurrentWordIndex] = useState(0)
-    const [words, setWords] = useState([
-        [{letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}],
-        [{letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}],
-        [{letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}],
-        [{letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}],
-        [{letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}],
-        [{letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}]
-    ])
     const wordsDivRef = useRef()
-    const {handleLetterClassName, handleLetterStyle} = useWords(currentWordIndex, setCurrentWordIndex, words, setWords, wordsDivRef)
+    const {handleLetterClassName, handleLetterStyle} = useWords(currentWordIndex, setCurrentWordIndex, words, setWords, wordsDivRef, setFinishedGame, insertedWords, setInsertedWords)
 
     return (
         <section className="table">

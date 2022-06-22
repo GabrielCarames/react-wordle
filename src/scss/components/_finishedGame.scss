@@ -1,0 +1,16 @@
+.finished-game {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(105, 105, 105);
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    color: white;
+    .modal {
+        position: relative;
+        z-index: 1;
+        background-color: rgb(194, 194, 194);
+        color: white;
+    }
+}
