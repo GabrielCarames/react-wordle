@@ -17,6 +17,12 @@
             padding: 0;
             list-style: none;
             position: relative;
+            &.active {
+                .word__letter {
+                    border: 2px solid #646668;
+                    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.176);
+                }
+            }
             &.shake {
                 animation: shake .5s linear 1;
             }
@@ -53,7 +59,7 @@
 
 @keyframes appear {
     0% {
-        transform: translateY(-30px);
+        transform: translateY(-10px);
     }
     100% {
         transform: translateY(0);

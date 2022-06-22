@@ -114,6 +114,12 @@ html body #root .App {
   position: relative;
 }
 
+.table .words .word.active .word__letter {
+  border: 2px solid #646668;
+  -webkit-box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.176);
+          box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.176);
+}
+
 .table .words .word.shake {
   -webkit-animation: shake .5s linear 1;
           animation: shake .5s linear 1;
@@ -177,8 +183,8 @@ html body #root .App {
 
 @-webkit-keyframes appear {
   0% {
-    -webkit-transform: translateY(-30px);
-            transform: translateY(-30px);
+    -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
   }
   100% {
     -webkit-transform: translateY(0);
@@ -188,8 +194,8 @@ html body #root .App {
 
 @keyframes appear {
   0% {
-    -webkit-transform: translateY(-30px);
-            transform: translateY(-30px);
+    -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
   }
   100% {
     -webkit-transform: translateY(0);
@@ -334,6 +340,100 @@ html body #root .App {
   100% {
     -webkit-transform: translate(3px) rotate(0deg);
             transform: translate(3px) rotate(0deg);
+  }
+}
+
+.keyboard {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+  width: 500px;
+}
+
+.keyboard .row {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-wrap: wrap;
+      flex-wrap: wrap;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  gap: 5px;
+  width: 500px;
+}
+
+.keyboard .row .keyboard__key {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
+  width: auto;
+  height: 56px;
+  background-color: #D3D6DA;
+  border-radius: 5px;
+  text-transform: uppercase;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  -webkit-transition: opacity .1s;
+  transition: opacity .1s;
+}
+
+.keyboard .row .keyboard__key:hover {
+  opacity: .7;
+}
+
+.keyboard .row .keyboard__key.active {
+  -webkit-animation: key 500ms ease-in-out;
+          animation: key 500ms ease-in-out;
+}
+
+.keyboard .row .keyboard__key .keyboard__key--delete {
+  width: 100%;
+  height: 25px;
+}
+
+@-webkit-keyframes key {
+  0% {
+    opacity: .8;
+    -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
+  }
+  50% {
+    opacity: .5;
+    -webkit-transform: translateY(-15px);
+            transform: translateY(-15px);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
+  }
+}
+
+@keyframes key {
+  0% {
+    opacity: .8;
+    -webkit-transform: translateY(-10px);
+            transform: translateY(-10px);
+  }
+  50% {
+    opacity: .5;
+    -webkit-transform: translateY(-15px);
+            transform: translateY(-15px);
+  }
+  100% {
+    opacity: 0;
+    -webkit-transform: translateY(-50px);
+            transform: translateY(-50px);
   }
 }
 /*# sourceMappingURL=index.css.map */

@@ -1,7 +1,7 @@
 import { useRef, useState } from "react"
 import { useWords } from "../hooks/useWords"
 
-function Words() {
+export default function Words() {
     const [currentWordIndex, setCurrentWordIndex] = useState(0)
     const [words, setWords] = useState([
         [{letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}, {letter: "", bgColor: "white"}],
@@ -19,7 +19,7 @@ function Words() {
             <div className="words" ref={wordsDivRef}>
                 {
                     words.map((word, wordIndex) => 
-                        <ul className="word" key={wordIndex}>
+                        <ul className={currentWordIndex === wordIndex ? "word active" : "word"} key={wordIndex}>
                             {
                                 word.map((letter, letterIndex) =>
                                     <li className={handleLetterClassName(letter.letter)} style={handleLetterStyle(letter.bgColor)} key={letterIndex}>
@@ -34,5 +34,3 @@ function Words() {
         </section>
     )
 }
-
-export default Words

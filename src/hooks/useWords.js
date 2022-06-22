@@ -1,9 +1,11 @@
 import { useEffect, useMemo, useState } from "react"
+import { useKeyboard } from "./useKeyboard"
 import { wordListArray } from "./wordsList"
 
 export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords, wordsDivRef) => {
     const [switchShake, setSwitchShake] = useState(false)
     const {wordsList, winnerWord} = useMemo(() => wordListArray(), []) 
+    const {setCurrentKey} = useKeyboard()
     let timeoutId = 0
 
     useEffect(() => {
@@ -31,13 +33,15 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
     }
 
     const addLetterToWord = (currentLetterIndex, letter, wordsCopy, event) => {
-        if(event.key.length === 1 && event.key.match(/[a-z]/i) && currentLetterIndex !== -1){
+        if(event.key.length === 1 && event.key.match(/[a-z\u00f1]/i) && currentLetterIndex !== -1){
             wordsCopy[currentWordIndex][currentLetterIndex].letter = letter
             setWords([...wordsCopy])
+            setCurrentKey([...letter])
         } else shake()
     }
 
     const removeLetterFromWord = (currentLetterIndex, wordsCopy) => {
+        setCurrentKey(["borrar"])
         switch (currentLetterIndex) {
             case 0: shake()
                 break;
@@ -57,13 +61,13 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
     const shake = () => {
         wordsDivRef.current.childNodes[currentWordIndex].className = "word shake"
         setTimeout(() => {
-            wordsDivRef.current.childNodes[currentWordIndex].className = "word"
+            wordsDivRef.current.childNodes[currentWordIndex].className = "word active"
             setSwitchShake(!switchShake)
         }, 200)
     }
 
     const handleEnter = () => {
-        console.log(checkCurrentWordInWordList())
+        setCurrentKey(["enviar"])
         if(checkCurrentWordInWordList()) successWord() 
         else shake()
     }
@@ -78,7 +82,7 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
             } else if (winnerWordArray.includes(letter.letter) && letter.bgColor !== "green") {
                 currentLetterInWords.bgColor = "yellow"
                 winnerWordArray[winnerWordArray.indexOf(letter.letter)] = null
-            } else currentLetterInWords = "grey"
+            } else currentLetterInWords.bgColor = "grey"
         })
         wordAnimation()
         setCurrentWordIndex(currentWordIndex + 1)
