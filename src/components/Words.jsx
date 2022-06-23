@@ -1,10 +1,10 @@
 import { useRef, useState } from "react"
 import { useWords } from "../hooks/useWords"
 
-export default function Words({words, setWords, setFinishedGame, insertedWords, setInsertedWords}) {
+export default function Words({words, setWords, setFinishedGame, insertedWords, setInsertedWords, wordsList, winnerWord}) {
     const [currentWordIndex, setCurrentWordIndex] = useState(0)
     const wordsDivRef = useRef()
-    const {handleLetterClassName, handleLetterStyle} = useWords(currentWordIndex, setCurrentWordIndex, words, setWords, wordsDivRef, setFinishedGame, insertedWords, setInsertedWords)
+    const {handleLetterClassName, handleLetterStyle} = useWords(currentWordIndex, setCurrentWordIndex, words, setWords, wordsDivRef, setFinishedGame, insertedWords, setInsertedWords, wordsList, winnerWord)
 
     return (
         <section className="table">

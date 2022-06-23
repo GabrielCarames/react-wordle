@@ -12029,8 +12029,16 @@ export const wordListArray = () => {
         "Ã±utos",
         "Ã±uzco",
         "Ã±uÃ±oa"]
-    // const winnerWord = wordsList[Math.floor(Math.random() * (12033 - 0) + 0)]
-    const winnerWord = "manar"
+    let winnerWord = ""
+    const currentDay = new Date().getDay()
+    console.log("boludo", JSON.parse(localStorage.getItem('currentDayWord')))
+    if(!JSON.parse(localStorage.getItem('currentDayWord')) || JSON.parse(localStorage.getItem('currentDayWord')).day !== currentDay) {
+        const randomWord = wordsList[Math.floor(Math.random() * (12033 - 0) + 0)]
+        localStorage.setItem('currentDayWord', JSON.stringify({word: randomWord, day: currentDay}))
+        winnerWord = {word: randomWord, day: currentDay}
+    } else winnerWord = JSON.parse(localStorage.getItem('currentDayWord'))
+    
     console.log(wordsList, winnerWord)
+    
     return {wordsList, winnerWord}
 }

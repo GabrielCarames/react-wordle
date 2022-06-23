@@ -14,15 +14,17 @@
             flex-grow: 1;
             width: auto;
             height: 56px;
-            background-color: #D3D6DA;
+            background-color: $accentColor;
+            color: white;
             border-radius: 5px;
             text-transform: uppercase;
-            font-weight: 700;
+            font-weight: 900;
             border: none;
             cursor: pointer;
             transition: opacity .1s;
             &:hover {
-                opacity: .7;
+                background-color: $primaryColor;
+                color: $lightColor;
             }
             &.active {
                 animation: key 500ms ease-in-out;

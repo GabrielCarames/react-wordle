@@ -19,8 +19,9 @@
             position: relative;
             &.active {
                 .word__letter {
-                    border: 2px solid #646668;
-                    box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.176);
+                    border: 2px solid $lightColor;
+                    box-shadow: 0 0 20px 2px $accentColor;
+                    color: white;
                 }
             }
             &.shake {
@@ -47,10 +48,11 @@
                 max-width: 62px;
                 height: 62px;
                 max-height: 62px;
-                border: 2px solid #D3D6DA;
+                box-shadow: 0 0 5px 2px $accentColor;
+                background-color: rgba(255, 255, 255, 0.078);
                 box-sizing: border-box;
                 &.active {
-                    border: 2px solid #878A8C;
+                    border: 2px solid $lightColor;
                 }
             }
         }

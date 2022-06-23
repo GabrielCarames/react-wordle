@@ -2,9 +2,8 @@ import { useEffect, useMemo, useState } from "react"
 import { useKeyboard } from "./useKeyboard"
 import { wordListArray } from "./wordsList"
 
-export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords, wordsDivRef, setFinishedGame, insertedWords, setInsertedWords) => {
+export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords, wordsDivRef, setFinishedGame, insertedWords, setInsertedWords, wordsList, winnerWord) => {
     const [switchShake, setSwitchShake] = useState(false)
-    const {wordsList, winnerWord} = useMemo(() => wordListArray(), []) 
     const {setCurrentKey} = useKeyboard()
     let timeoutId = 0
 
@@ -81,7 +80,7 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
     }
 
     const successWord = () => {
-        let winnerWordArray = winnerWord.split('')
+        let winnerWordArray = winnerWord.word.split('')
         words[currentWordIndex].forEach((letter, index) => {
             let currentLetterInWords = words[currentWordIndex][index]
             if(winnerWordArray[index] === letter.letter) {
@@ -108,17 +107,19 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
 
     const handleLetterStyle = bgColor => {
         switch (bgColor) {
-            case "grey": return {backgroundColor: "#787C7E", border: "2px solid #787C7E", color: "#FFFFFF"}
-            case "green": return {backgroundColor: "#6AAA64", border: "2px solid #6AAA64", color: "#FFFFFF"}
-            case "yellow": return {backgroundColor: "#C9B458", border: "2px solid #C9B458", color: "#FFFFFF"}
+            case "grey": return {backgroundColor: "#787C7E", border: "2px solid #15204D", color: "#FFFFFF"}
+            case "green": return {backgroundColor: "#6AAA64", border: "2px solid #15204D", color: "#FFFFFF"}
+            case "yellow": return {backgroundColor: "#C9B458", border: "2px solid #15204D", color: "#FFFFFF"}
         }
     }
 
     const wordAnimation = () => {
-        wordsDivRef.current.childNodes[currentWordIndex].className = "word success"
         setTimeout(() => {
-            wordsDivRef.current.childNodes[currentWordIndex].className = "word"
-        }, 1500)
+            wordsDivRef.current.childNodes[currentWordIndex].className = "word success"
+            setTimeout(() => {
+                wordsDivRef.current.childNodes[currentWordIndex].className = "word"
+            }, 1500)
+        }, 0)
     }
 
     return {handleLetterClassName, handleLetterStyle}

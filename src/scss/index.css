@@ -17,7 +17,7 @@ html body {
   font-family: Arial, Helvetica, sans-serif;
   font-size: 14px;
   font-weight: 400;
-  background-color: white;
+  background: rgba(0, 0, 0, 0) url("../icons/background.png") no-repeat scroll 0% 50%/cover;
 }
 
 html body #root {
@@ -56,6 +56,7 @@ html body #root .App {
   position: relative;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  color: white;
 }
 
 .navbar::after {
@@ -115,9 +116,10 @@ html body #root .App {
 }
 
 .table .words .word.active .word__letter {
-  border: 2px solid #646668;
-  -webkit-box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.176);
-          box-shadow: 0 0 20px 1px rgba(0, 0, 0, 0.176);
+  border: 2px solid #C2CBF2;
+  -webkit-box-shadow: 0 0 20px 2px #15204D;
+          box-shadow: 0 0 20px 2px #15204D;
+  color: white;
 }
 
 .table .words .word.shake {
@@ -172,13 +174,15 @@ html body #root .App {
   max-width: 62px;
   height: 62px;
   max-height: 62px;
-  border: 2px solid #D3D6DA;
+  -webkit-box-shadow: 0 0 5px 2px #15204D;
+          box-shadow: 0 0 5px 2px #15204D;
+  background-color: rgba(255, 255, 255, 0.078);
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
 }
 
 .table .words .word .word__letter.active {
-  border: 2px solid #878A8C;
+  border: 2px solid #C2CBF2;
 }
 
 @-webkit-keyframes appear {
@@ -377,10 +381,11 @@ html body #root .App {
           flex-grow: 1;
   width: auto;
   height: 56px;
-  background-color: #D3D6DA;
+  background-color: #15204D;
+  color: white;
   border-radius: 5px;
   text-transform: uppercase;
-  font-weight: 700;
+  font-weight: 900;
   border: none;
   cursor: pointer;
   -webkit-transition: opacity .1s;
@@ -388,7 +393,8 @@ html body #root .App {
 }
 
 .keyboard .row .keyboard__key:hover {
-  opacity: .7;
+  background-color: #2C429F;
+  color: #C2CBF2;
 }
 
 .keyboard .row .keyboard__key.active {
@@ -447,7 +453,7 @@ html body #root .App {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: dimgray;
+  background-color: #15204db0;
   width: 100%;
   height: 100%;
   position: absolute;
@@ -455,9 +461,171 @@ html body #root .App {
 }
 
 .finished-game .modal {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 35px;
   position: relative;
   z-index: 1;
-  background-color: #c2c2c2;
+  background-color: #2C429F;
   color: white;
+  width: 400px;
+  height: 400px;
+  border-radius: 10px;
+}
+
+.finished-game .modal .header {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.finished-game .modal .finished-game__winner-word {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 30px;
+  margin: 0;
+}
+
+.finished-game .modal .finished-game__winner-word .finished-game__winner-word--bold {
+  font-weight: 900;
+  font-size: 60px;
+  color: #5A7AFF;
+}
+
+.finished-game .modal .statistics {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  list-style: none;
+  gap: 20px;
+  padding: 0;
+  margin: 0;
+}
+
+.finished-game .modal .statistics .statistics__item {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  gap: 10px;
+}
+
+.finished-game .modal .statistics .statistics__item .statistics__number {
+  font-size: 40px;
+  font-weight: 900;
+  margin: 0;
+}
+
+.finished-game .modal .statistics .statistics__item .statistics__text {
+  margin: 0;
+  font-size: 14px;
+}
+
+.finished-game .modal .data {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  width: 350px;
+}
+
+.finished-game .modal .data .time-left {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  font-size: 30px;
+}
+
+.finished-game .modal .data .time-left .time-left__text {
+  font-size: 16px;
+  margin: 0;
+}
+
+.finished-game .modal .data .github {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+}
+
+.finished-game .modal .data .github .github__button {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: justify;
+      -ms-flex-pack: justify;
+          justify-content: space-between;
+  padding: 0 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  width: 150px;
+  height: 50px;
+  border-radius: 10px;
+  background-color: #5A7AFF;
+  text-decoration: none;
+}
+
+.finished-game .modal .data .github .github__button:hover {
+  background-color: #15204db6;
+}
+
+.finished-game .modal .data .github .github__button .github__logo {
+  width: 30px;
+  height: auto;
+}
+
+.finished-game .modal .data .github .github__button .github__text {
+  color: white;
+  font-weight: 900;
 }
 /*# sourceMappingURL=index.css.map */
