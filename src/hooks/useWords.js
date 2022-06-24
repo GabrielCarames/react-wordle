@@ -12,8 +12,16 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
     
     const checkGameFinished = () => {
         if(words[currentWordIndex-1].every(letter => letter.bgColor === "green")) {
-            setFinishedGame({result: "win", state: true})
-        } else if(currentWordIndex === 6) setFinishedGame({result: "lose", state: true})
+            setShowNotification({state: true, message: "¡Palabra correcta!"})
+            setTimeout(() => {
+                setFinishedGame({result: "win", state: true})
+            }, 2000)
+        } else if(currentWordIndex === 6) {
+            setShowNotification({state: true, message: "¡Has perdido!"})
+            setTimeout(() => {
+                setFinishedGame({result: "lose", state: true})
+            }, 2000)
+        }
     }
 
     useEffect(() => {
@@ -80,8 +88,10 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
 
     const handleEnter = () => {
         setCurrentKey(["enviar"])
-        if(checkCurrentWordInWordList()) successWord() 
-        else shake("Palabra no encontrada en la lista.")
+        if(checkCurrentWordInWordList()) {
+            if(checkCurrentWordInWordList() === " ") shake("No hay suficientes letras.")
+            else successWord() 
+        } else shake("Palabra no encontrada en la lista.")
     }
 
     const successWord = () => {
@@ -104,7 +114,8 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
 
     const checkCurrentWordInWordList = () => {
         const wordToCheck = words[currentWordIndex].map(letter => letter.letter).join("")
-        const foundWord = wordsList.find(word => word === wordToCheck)
+        let foundWord = " "
+        if(wordToCheck.length >= 1) foundWord = wordsList.find(word => word === wordToCheck)
         return foundWord
     }
 

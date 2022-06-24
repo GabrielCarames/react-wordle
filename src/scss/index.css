@@ -79,7 +79,19 @@ html body #root .App {
 }
 
 .navbar .navbar__title {
-  font-size: 30px;
+  font-size: 20px;
+}
+
+@media screen and (min-width: 600px) {
+  .navbar .navbar__title {
+    font-size: calc(20px + 10 * (100vw - 600px) / 600);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .navbar .navbar__title {
+    font-size: 30px;
+  }
 }
 
 .table {
@@ -92,6 +104,7 @@ html body #root .App {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  width: 100%;
   height: 700px;
   margin-top: 10px;
 }
@@ -104,9 +117,17 @@ html body #root .App {
   -webkit-box-direction: normal;
       -ms-flex-direction: column;
           flex-direction: column;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
   gap: 5px;
   width: 100%;
   max-width: 352px;
+  height: 100%;
+  max-height: 437px;
+  padding: 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .table .words .word {
@@ -118,6 +139,8 @@ html body #root .App {
   padding: 0;
   list-style: none;
   position: relative;
+  width: 100%;
+  height: 100%;
 }
 
 .table .words .word.active .word__letter {
@@ -175,15 +198,13 @@ html body #root .App {
   font-size: 30px;
   text-transform: uppercase;
   font-weight: 700;
-  width: 62px;
-  max-width: 62px;
-  height: 62px;
-  max-height: 62px;
   -webkit-box-shadow: 0 0 5px 2px #15204D;
           box-shadow: 0 0 5px 2px #15204D;
   background-color: rgba(255, 255, 255, 0.078);
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
+  width: 100%;
+  height: auto;
 }
 
 .table .words .word .word__letter.active {
@@ -364,7 +385,11 @@ html body #root .App {
       -ms-flex-align: center;
           align-items: center;
   gap: 10px;
-  width: 500px;
+  width: 100%;
+  max-width: 512px;
+  padding: 5px 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
 }
 
 .keyboard .row {
@@ -377,7 +402,7 @@ html body #root .App {
       -ms-flex-pack: center;
           justify-content: center;
   gap: 5px;
-  width: 500px;
+  width: 100%;
 }
 
 .keyboard .row .keyboard__key {
@@ -462,6 +487,9 @@ html body #root .App {
   width: 100%;
   height: 100%;
   position: absolute;
+  padding: 0 10px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   color: white;
   z-index: 2;
 }
@@ -482,7 +510,8 @@ html body #root .App {
   z-index: 1;
   background-color: #2C429F;
   color: white;
-  width: 400px;
+  width: 100%;
+  max-width: 400px;
   height: -webkit-min-content;
   height: -moz-min-content;
   height: min-content;
@@ -590,9 +619,21 @@ html body #root .App {
 }
 
 .finished-game .modal .statistics .statistics__item .statistics__number {
-  font-size: 40px;
+  font-size: 30px;
   font-weight: 900;
   margin: 0;
+}
+
+@media screen and (min-width: 600px) {
+  .finished-game .modal .statistics .statistics__item .statistics__number {
+    font-size: calc(30px + 10 * (100vw - 600px) / 600);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .finished-game .modal .statistics .statistics__item .statistics__number {
+    font-size: 40px;
+  }
 }
 
 .finished-game .modal .statistics .statistics__item .statistics__text {
@@ -607,10 +648,9 @@ html body #root .App {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: center;
-      -ms-flex-pack: center;
-          justify-content: center;
-  width: 350px;
+  -ms-flex-pack: distribute;
+      justify-content: space-around;
+  width: 100%;
 }
 
 .finished-game .modal .data .time-left {
@@ -627,12 +667,25 @@ html body #root .App {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  font-size: 30px;
+  font-size: 20px;
+}
+
+@media screen and (min-width: 600px) {
+  .finished-game .modal .data .time-left {
+    font-size: calc(20px + 10 * (100vw - 600px) / 600);
+  }
+}
+
+@media screen and (min-width: 1200px) {
+  .finished-game .modal .data .time-left {
+    font-size: 30px;
+  }
 }
 
 .finished-game .modal .data .time-left .time-left__text {
   font-size: 16px;
   margin: 0;
+  text-align: center;
 }
 
 .finished-game .modal .data .github {
@@ -664,7 +717,8 @@ html body #root .App {
   padding: 0 10px;
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
-  width: 150px;
+  width: 100%;
+  max-width: 150px;
   height: 50px;
   border-radius: 10px;
   background-color: #5A7AFF;
@@ -697,7 +751,8 @@ html body #root .App {
           align-items: center;
   position: absolute;
   top: 0;
-  width: 500px;
+  width: 100%;
+  max-width: 512px;
   height: 70px;
   padding: 20px;
   -webkit-box-sizing: border-box;

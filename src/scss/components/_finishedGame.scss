@@ -6,6 +6,8 @@
     width: 100%;
     height: 100%;
     position: absolute;
+    padding: 0 10px;
+    box-sizing: border-box;
     color: white;
     z-index: 2;
     .modal {
@@ -17,7 +19,8 @@
         z-index: 1;
         background-color: $primaryColor;
         color: white;
-        width: 400px;
+        width: 100%;
+        max-width: 400px;
         height: min-content;
         padding: 20px;
         box-sizing: border-box;
@@ -84,7 +87,7 @@
                 align-items: center;
                 gap: 10px;
                 .statistics__number {
-                    font-size: 40px;
+                    @include fluid-type(font-size, 600px, 1200px, 30px, 40px);
                     font-weight: 900;
                     margin: 0;
                 }
@@ -97,17 +100,18 @@
         .data {
             display: flex;
             align-items: center;
-            justify-content: center;
-            width: 350px;
+            justify-content: space-around;
+            width: 100%;
             .time-left {
                 flex-grow: 1;
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                font-size: 30px;
+                @include fluid-type(font-size, 600px, 1200px, 20px, 30px);
                 .time-left__text {
                     font-size: 16px;
                     margin: 0;
+                    text-align: center;
                 }
             }
             .github {
@@ -121,7 +125,8 @@
                     justify-content: space-between;
                     padding: 0 10px;
                     box-sizing: border-box;
-                    width: 150px;
+                    width: 100%;
+                    max-width: 150px;
                     height: 50px;
                     border-radius: 10px;
                     background-color: #5A7AFF;

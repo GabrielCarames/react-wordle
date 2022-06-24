@@ -26,6 +26,6 @@
         }
     }
     .navbar__title {
-        font-size: 30px;
+        @include fluid-type(font-size, 600px, 1200px, 20px, 30px);
     }
 }

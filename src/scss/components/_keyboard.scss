@@ -3,13 +3,16 @@
     flex-direction: column;
     align-items: center;
     gap: 10px;
-    width: 500px;
+    width: 100%;
+    max-width: 512px;
+    padding: 5px 10px;
+    box-sizing: border-box;
     .row {
         display: flex;
         flex-wrap: wrap;
         justify-content: center;
         gap: 5px;
-        width: 500px;
+        width: 100%;
         .keyboard__key {
             flex-grow: 1;
             width: auto;

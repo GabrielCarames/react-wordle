@@ -11,7 +11,7 @@ export default function Keyboard({insertedWords}) {
                     <div className="row" key={keyboardIndex}>
                         {
                             row.map((key, rowIndex) =>
-                                key === "borrar" ? <button className="keyboard__key" key={rowIndex} onClick={() => keyClicked("borrar")}><img className="keyboard__key--delete" src={deleteIcon} alt="Borrar letra"/></button>
+                                key === "borrar" ? <button className="keyboard__key" key={rowIndex} onClick={() => keyClicked("Backspace")}><img className="keyboard__key--delete" src={deleteIcon} alt="Borrar letra"/></button>
                                 : <button className="keyboard__key" id={key} style={keyUsed(key)} key={rowIndex} onClick={() => keyClicked(key)}>{key}</button>
                             )
                         }
