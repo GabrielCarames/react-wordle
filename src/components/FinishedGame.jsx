@@ -85,7 +85,7 @@ export default function FinishedGame({finishedGame, setFinishedGame, winnerWord}
                         : <></>
                     }
                     <div className="github">
-                        <a className="github__button" href="https://github.com/GabrielCarames" target="_blank" rel="noreferrer">
+                        <a className="github__button" href="https://github.com/GabrielCarames/react-wordle" target="_blank" rel="noreferrer">
                             <img className="github__logo" src={github} alt="Logo de github" />
                             <p className="github__text">Repositorio</p>
                         </a>

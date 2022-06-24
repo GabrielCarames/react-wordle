@@ -31,7 +31,7 @@ export default function Instructions({setInstructions}) {
                         })
                     }
                 </ul>
-                <p className="modal__disclaimer">Este proyecto es una versión propia del juego original Wordle. <a className="modal__link" href="" target="_blank">Puedes visitar el código aquí</a></p>
+                <p className="modal__disclaimer">Este proyecto es una versión propia del juego original Wordle. <a className="modal__link" href="https://github.com/GabrielCarames/react-wordle" target="_blank">Puedes visitar el código aquí</a></p>
             </div>
         </section>
     )
