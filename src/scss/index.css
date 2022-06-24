@@ -70,7 +70,12 @@ html body #root .App {
 }
 
 .navbar .navbar__logo {
-  width: 16px;
+  width: 30px;
+  cursor: pointer;
+}
+
+.navbar .navbar__logo:hover {
+  opacity: .5;
 }
 
 .navbar .navbar__title {
@@ -453,11 +458,12 @@ html body #root .App {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  background-color: #15204db0;
+  background-color: #15204dbb;
   width: 100%;
   height: 100%;
   position: absolute;
   color: white;
+  z-index: 2;
 }
 
 .finished-game .modal {
@@ -477,8 +483,34 @@ html body #root .App {
   background-color: #2C429F;
   color: white;
   width: 400px;
-  height: 400px;
+  height: -webkit-min-content;
+  height: -moz-min-content;
+  height: min-content;
+  padding: 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
   border-radius: 10px;
+  -webkit-box-shadow: 0 0 20px 1px #2C429F;
+          box-shadow: 0 0 20px 1px #2C429F;
+}
+
+.finished-game .modal .close {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 40px;
+  height: 40px;
+  background-color: rgba(255, 0, 0, 0);
+  border: none;
+  cursor: pointer;
+}
+
+.finished-game .modal .close:hover {
+  opacity: .5;
+}
+
+.finished-game .modal .close .close__icon {
+  width: 20px;
 }
 
 .finished-game .modal .header {
@@ -492,6 +524,24 @@ html body #root .App {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+.finished-game .modal .header.no-data .finished-game__no-data {
+  display: inline-block;
+  width: 200px;
+  text-align: center;
+}
+
+.finished-game .modal .header.no-data .finished-game__title {
+  display: none;
+}
+
+.finished-game .modal .header.no-data .finished-game__winner-word {
+  display: none;
+}
+
+.finished-game .modal .header .finished-game__no-data {
+  display: none;
 }
 
 .finished-game .modal .finished-game__winner-word {
@@ -557,13 +607,16 @@ html body #root .App {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  -webkit-box-pack: justify;
-      -ms-flex-pack: justify;
-          justify-content: space-between;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
   width: 350px;
 }
 
 .finished-game .modal .data .time-left {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
@@ -583,6 +636,9 @@ html body #root .App {
 }
 
 .finished-game .modal .data .github {
+  -webkit-box-flex: 1;
+      -ms-flex-positive: 1;
+          flex-grow: 1;
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;

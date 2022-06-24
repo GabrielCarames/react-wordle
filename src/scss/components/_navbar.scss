@@ -19,7 +19,11 @@
         left: 0;
     }
     .navbar__logo {
-        width: 16px;
+        width: 30px;
+        cursor: pointer;
+        &:hover {
+            opacity: .5;
+        }
     }
     .navbar__title {
         font-size: 30px;

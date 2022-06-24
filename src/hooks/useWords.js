@@ -1,8 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { useKeyboard } from "./useKeyboard"
-import { wordListArray } from "./wordsList"
 
-export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords, wordsDivRef, setFinishedGame, insertedWords, setInsertedWords, wordsList, winnerWord) => {
+export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords, wordsDivRef, finishedGame, setFinishedGame, insertedWords, setInsertedWords, wordsList, winnerWord) => {
     const [switchShake, setSwitchShake] = useState(false)
     const {setCurrentKey} = useKeyboard()
     let timeoutId = 0
@@ -12,7 +11,9 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
     }, [currentWordIndex])
     
     const checkGameFinished = () => {
-        if(words[currentWordIndex-1].every(letter => letter.bgColor === "green")) setFinishedGame({result: "win", state: true})
+        if(words[currentWordIndex-1].every(letter => letter.bgColor === "green")) {
+            setFinishedGame({result: "win", state: true})
+        }
     }
 
     useEffect(() => {
@@ -40,7 +41,8 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
     }
 
     const addLetterToWord = (currentLetterIndex, letter, wordsCopy, event) => {
-        if(event.key.length === 1 && event.key.match(/[a-z\u00f1]/i) && currentLetterIndex !== -1){
+        console.log("adasd", JSON.parse(localStorage.getItem("alreadyPlayed")))
+        if(event.key.length === 1 && event.key.match(/[a-z\u00f1]/i) && currentLetterIndex !== -1 && JSON.parse(localStorage.getItem("alreadyPlayed")).shouldPlay === true){
             wordsCopy[currentWordIndex][currentLetterIndex].letter = letter
             setWords([...wordsCopy])
             setCurrentKey([...letter])
@@ -105,14 +107,6 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
 
     const handleLetterClassName = letter => letter !== "" ? "word__letter active" : "word__letter"
 
-    const handleLetterStyle = bgColor => {
-        switch (bgColor) {
-            case "grey": return {backgroundColor: "#787C7E", border: "2px solid #15204D", color: "#FFFFFF"}
-            case "green": return {backgroundColor: "#6AAA64", border: "2px solid #15204D", color: "#FFFFFF"}
-            case "yellow": return {backgroundColor: "#C9B458", border: "2px solid #15204D", color: "#FFFFFF"}
-        }
-    }
-
     const wordAnimation = () => {
         setTimeout(() => {
             wordsDivRef.current.childNodes[currentWordIndex].className = "word success"
@@ -122,5 +116,5 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
         }, 0)
     }
 
-    return {handleLetterClassName, handleLetterStyle}
+    return {handleLetterClassName}
 }

@@ -12036,9 +12036,13 @@ export const wordListArray = () => {
         const randomWord = wordsList[Math.floor(Math.random() * (12033 - 0) + 0)]
         localStorage.setItem('currentDayWord', JSON.stringify({word: randomWord, day: currentDay}))
         winnerWord = {word: randomWord, day: currentDay}
+        const alreadyPlayed = JSON.parse(localStorage.getItem("alreadyPlayed"))
+        if(alreadyPlayed) localStorage.setItem("alreadyPlayed", JSON.stringify({...alreadyPlayed, shouldPlay: false}))
+        else localStorage.setItem("alreadyPlayed", JSON.stringify({shouldPlay: true, result: false, winnerWord: null}))
     } else winnerWord = JSON.parse(localStorage.getItem('currentDayWord'))
     
     console.log(wordsList, winnerWord)
+    // {shouldPlay: false, result: false, winnerWord: null}
     
     return {wordsList, winnerWord}
 }

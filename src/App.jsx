@@ -18,12 +18,14 @@ function App() {
     ])
     const {wordsList, winnerWord} = useMemo(() => wordListArray(), []) 
     console.log("winnerWord", winnerWord)
+
     return (
         <div className="App">
-            {finishedGame.state && <FinishedGame finishedGame={finishedGame} winnerWord={winnerWord} />}
-            <Navbar />
+            {finishedGame.state && <FinishedGame finishedGame={finishedGame} setFinishedGame={setFinishedGame} winnerWord={winnerWord} />}
+            <Navbar finishedGame={finishedGame} setFinishedGame={setFinishedGame} />
             <Words words={words} 
                 setWords={setWords} 
+                finishedGame={finishedGame}
                 setFinishedGame={setFinishedGame} 
                 insertedWords={insertedWords} 
                 setInsertedWords={setInsertedWords} 

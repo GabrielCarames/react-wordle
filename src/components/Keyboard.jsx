@@ -1,10 +1,9 @@
+import { handleLetterStyle } from "../hooks/handleLetterStyle"
 import { useKeyboard } from "../hooks/useKeyboard"
-import { useWords } from "../hooks/useWords"
 import deleteIcon from '../icons/delete.svg'
 
 export default function Keyboard({insertedWords}) {
     const {keyboard} = useKeyboard()
-    const {handleLetterStyle} = useWords()
 
     const keyUsed = key => {
         let letter = null
