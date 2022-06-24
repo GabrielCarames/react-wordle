@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react"
+import { useEffect, useState } from "react"
 import { useKeyboard } from "./useKeyboard"
 
 export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords, wordsDivRef, setFinishedGame, insertedWords, setInsertedWords, wordsList, winnerWord, setShowNotification) => {
@@ -26,23 +26,21 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
             clearTimeout(timeoutId)
             timeoutId = setTimeout(() => {
                 const key = event.key
-                
+                const currentLetterIndex = getCurrentLetterIndex()
+                let wordsCopy = words
                 switch (key) {
                     case "Enter": handleEnter()
                         break;
-                    case "Backspace": removeLetterFromWord()
+                    case "Backspace": removeLetterFromWord(wordsCopy, currentLetterIndex)
                         break;
-                    default: addLetterToWord(key)
+                    default: addLetterToWord(key, wordsCopy, currentLetterIndex)
                         break;
                 }
             }, 0)
         }, {once : true})
     }
 
-    const addLetterToWord = (letter) => {
-        const currentLetterIndex = getCurrentLetterIndex()
-        let wordsCopy = words
-        console.log("adasd", letter)
+    const addLetterToWord = (letter, wordsCopy, currentLetterIndex) => {
         if(letter.length === 1 && letter.match(/[a-z\u00f1]/i) && currentLetterIndex !== -1 && JSON.parse(localStorage.getItem("alreadyPlayed")).shouldPlay === true){
             wordsCopy[currentWordIndex][currentLetterIndex].letter = letter
             setWords([...wordsCopy])
@@ -53,9 +51,7 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
         }
     }
 
-    const removeLetterFromWord = () => {
-        const currentLetterIndex = getCurrentLetterIndex()
-        let wordsCopy = words
+    const removeLetterFromWord = (wordsCopy, currentLetterIndex) => {
         setCurrentKey(["borrar"])
         switch (currentLetterIndex) {
             case 0: shake()
@@ -85,7 +81,7 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
     const handleEnter = () => {
         setCurrentKey(["enviar"])
         if(checkCurrentWordInWordList()) successWord() 
-        else shake("Palabra no encontrada en la lista")
+        else shake("Palabra no encontrada en la lista.")
     }
 
     const successWord = () => {

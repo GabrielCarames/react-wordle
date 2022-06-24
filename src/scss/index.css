@@ -707,8 +707,8 @@ html body #root .App {
   color: #C2CBF2;
   background-color: #15204D;
   z-index: 1;
-  -webkit-animation: appear 3s;
-          animation: appear 3s;
+  -webkit-animation: appear 5s;
+          animation: appear 5s;
 }
 
 @keyframes appear {

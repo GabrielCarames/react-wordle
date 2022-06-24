@@ -2,7 +2,7 @@ import { useRef, useState } from "react"
 import { handleLetterStyle } from "../hooks/handleLetterStyle"
 import { useWords } from "../hooks/useWords"
 
-export default function Words({words, setWords, finishedGame, setFinishedGame, insertedWords, setInsertedWords, wordsList, winnerWord, setShowNotification}) {
+export default function Words({words, setWords, setFinishedGame, insertedWords, setInsertedWords, wordsList, winnerWord, setShowNotification}) {
     const [currentWordIndex, setCurrentWordIndex] = useState(0)
     const wordsDivRef = useRef()
     const {handleLetterClassName} = useWords(currentWordIndex, setCurrentWordIndex, words, setWords, wordsDivRef, setFinishedGame, insertedWords, setInsertedWords, wordsList, winnerWord, setShowNotification)

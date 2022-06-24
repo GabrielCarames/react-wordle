@@ -1,14 +1,13 @@
 import { useEffect, useState } from "react"
+import Statistic from "./Statistic"
 import github from "../icons/github.svg"
 import close from "../icons/close.svg"
-import Statistic from "./Statistic"
 
 export default function FinishedGame({finishedGame, setFinishedGame, winnerWord}) {
     const [timeLeft, setTimeLeft] = useState()
     const [statistics, setStatistics] = useState(JSON.parse(localStorage.getItem("statistics")) ? JSON.parse(localStorage.getItem("statistics")) : [{number: 0, text: "Partidas"}, {number: "0%", text: "Ganadas"}, {number: 0, text: "Racha"}, {number: 0, text: "Mejor Racha"}])
 
     useEffect(() => {
-        console.log(finishedGame.state, localStorage.getItem("alreadyPlayed"))
         if(finishedGame.result === "win" && JSON.parse(localStorage.getItem("alreadyPlayed")).shouldPlay === true) {
             const statisticsCopy = statistics
             statisticsCopy[0].number += 1
@@ -22,19 +21,21 @@ export default function FinishedGame({finishedGame, setFinishedGame, winnerWord}
     }, [finishedGame])
 
     useEffect(() => {
-        let count = setInterval(() => {
-            console.log("hora actualizada matame por favor")
-            const date_future = new Date(new Date().getFullYear() +1, 0, 1)
-            const date_now = new Date()
-            let seconds = Math.floor((date_future - (date_now))/1000)
-            let minutes = Math.floor(seconds/60)
-            let hours = Math.floor(minutes/60)
-            const days = Math.floor(hours/24)
-            hours = hours-(days*24)
-            minutes = minutes-(days*24*60)-(hours*60)
-            seconds = seconds-(days*24*60*60)-(hours*60*60)-(minutes*60)
-            setTimeLeft([formatTime(hours), formatTime(minutes), formatTime(seconds)])
-        }, 1000)
+        let count
+        if(JSON.parse(localStorage.getItem("alreadyPlayed")).shouldPlay === false) {
+                count = setInterval(() => {
+                const date_future = new Date(new Date().getFullYear() +1, 0, 1)
+                const date_now = new Date()
+                let seconds = Math.floor((date_future - (date_now))/1000)
+                let minutes = Math.floor(seconds/60)
+                let hours = Math.floor(minutes/60)
+                const days = Math.floor(hours/24)
+                hours = hours-(days*24)
+                minutes = minutes-(days*24*60)-(hours*60)
+                seconds = seconds-(days*24*60*60)-(hours*60*60)-(minutes*60)
+                setTimeLeft([formatTime(hours), formatTime(minutes), formatTime(seconds)])
+            }, 1000)
+        }
         return () => clearInterval(count)
     }, [])
 
