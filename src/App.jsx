@@ -5,9 +5,11 @@ import Keyboard from "./components/Keyboard"
 import Navbar from "./components/Navbar"
 import Words from "./components/Words"
 import { wordListArray } from "./hooks/wordsList"
+import Instructions from "./components/Instructions"
 
 function App() {
     const [finishedGame, setFinishedGame] = useState(false)
+    const [instructions, setInstructions] = useState(false)
     const [insertedWords, setInsertedWords] = useState([])
     const [showNotification, setShowNotification] = useState({state: false, message: ""})
     const [words, setWords] = useState([
@@ -24,7 +26,8 @@ function App() {
         <div className="App">
             {showNotification.state && <Notification showNotification={showNotification} setShowNotification={setShowNotification} />}
             {finishedGame.state && <FinishedGame finishedGame={finishedGame} setFinishedGame={setFinishedGame} winnerWord={winnerWord} />}
-            <Navbar finishedGame={finishedGame} setFinishedGame={setFinishedGame} />
+            {instructions && <Instructions setInstructions={setInstructions} />}
+            <Navbar finishedGame={finishedGame} setFinishedGame={setFinishedGame} setInstructions={setInstructions} />
             <Words words={words} 
                 setWords={setWords} 
                 setFinishedGame={setFinishedGame} 
