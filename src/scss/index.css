@@ -684,4 +684,46 @@ html body #root .App {
   color: white;
   font-weight: 900;
 }
+
+.notification {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  position: absolute;
+  top: 0;
+  width: 500px;
+  height: 70px;
+  padding: 20px;
+  -webkit-box-sizing: border-box;
+          box-sizing: border-box;
+  border-radius: 10px;
+  font-size: 20px;
+  color: #C2CBF2;
+  background-color: #15204D;
+  z-index: 1;
+  -webkit-animation: appear 3s;
+          animation: appear 3s;
+}
+
+@keyframes appear {
+  0% {
+    -webkit-transform: translateY(-100px);
+            transform: translateY(-100px);
+  }
+  50% {
+    -webkit-transform: translateY(0px);
+            transform: translateY(0px);
+  }
+  100% {
+    -webkit-transform: translateY(-100px);
+            transform: translateY(-100px);
+    display: none;
+  }
+}
 /*# sourceMappingURL=index.css.map */

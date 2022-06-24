@@ -1,0 +1,30 @@
+.notification {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: absolute;
+    top: 0;
+    width: 500px;
+    height: 70px;
+    padding: 20px;
+    box-sizing: border-box;
+    border-radius: 10px;
+    font-size: 20px;
+    color: $lightColor;
+    background-color: $accentColor;
+    z-index: 1;
+    animation: appear 3s;
+}
+
+@keyframes appear {
+    0% {
+        transform: translateY(-100px);
+    }
+    50% {
+        transform: translateY(0px);
+    }
+    100% {
+        transform: translateY(-100px);
+        display: none;
+    }
+}

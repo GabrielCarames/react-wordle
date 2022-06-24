@@ -1,7 +1,7 @@
 import { useEffect, useMemo, useState } from "react"
 import { useKeyboard } from "./useKeyboard"
 
-export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords, wordsDivRef, finishedGame, setFinishedGame, insertedWords, setInsertedWords, wordsList, winnerWord) => {
+export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords, wordsDivRef, setFinishedGame, insertedWords, setInsertedWords, wordsList, winnerWord, setShowNotification) => {
     const [switchShake, setSwitchShake] = useState(false)
     const {setCurrentKey} = useKeyboard()
     let timeoutId = 0
@@ -26,30 +26,36 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
             clearTimeout(timeoutId)
             timeoutId = setTimeout(() => {
                 const key = event.key
-                const currentLetterIndex = getCurrentLetterIndex()
-                let wordsCopy = words
+                
                 switch (key) {
                     case "Enter": handleEnter()
                         break;
-                    case "Backspace": removeLetterFromWord(currentLetterIndex, wordsCopy)
+                    case "Backspace": removeLetterFromWord()
                         break;
-                    default: addLetterToWord(currentLetterIndex, key, wordsCopy, event)
+                    default: addLetterToWord(key)
                         break;
                 }
             }, 0)
         }, {once : true})
     }
 
-    const addLetterToWord = (currentLetterIndex, letter, wordsCopy, event) => {
-        console.log("adasd", JSON.parse(localStorage.getItem("alreadyPlayed")))
-        if(event.key.length === 1 && event.key.match(/[a-z\u00f1]/i) && currentLetterIndex !== -1 && JSON.parse(localStorage.getItem("alreadyPlayed")).shouldPlay === true){
+    const addLetterToWord = (letter) => {
+        const currentLetterIndex = getCurrentLetterIndex()
+        let wordsCopy = words
+        console.log("adasd", letter)
+        if(letter.length === 1 && letter.match(/[a-z\u00f1]/i) && currentLetterIndex !== -1 && JSON.parse(localStorage.getItem("alreadyPlayed")).shouldPlay === true){
             wordsCopy[currentWordIndex][currentLetterIndex].letter = letter
             setWords([...wordsCopy])
             setCurrentKey([...letter])
-        } else shake()
+        } else {
+            if(JSON.parse(localStorage.getItem("alreadyPlayed")).shouldPlay === false) shake("Ya has jugado por hoy.")
+            else shake("Caracter ingresado incorrecto.")
+        }
     }
 
-    const removeLetterFromWord = (currentLetterIndex, wordsCopy) => {
+    const removeLetterFromWord = () => {
+        const currentLetterIndex = getCurrentLetterIndex()
+        let wordsCopy = words
         setCurrentKey(["borrar"])
         switch (currentLetterIndex) {
             case 0: shake()
@@ -67,8 +73,9 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
 
     const getCurrentLetterIndex = () => words[currentWordIndex].findIndex(letter => letter.letter === "")
 
-    const shake = () => {
+    const shake = (message) => {
         wordsDivRef.current.childNodes[currentWordIndex].className = "word shake"
+        message && setShowNotification({state: true, message: message})
         setTimeout(() => {
             wordsDivRef.current.childNodes[currentWordIndex].className = "word active"
             setSwitchShake(!switchShake)
@@ -78,7 +85,7 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
     const handleEnter = () => {
         setCurrentKey(["enviar"])
         if(checkCurrentWordInWordList()) successWord() 
-        else shake()
+        else shake("Palabra no encontrada en la lista")
     }
 
     const successWord = () => {
@@ -116,5 +123,5 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
         }, 0)
     }
 
-    return {handleLetterClassName}
+    return {handleLetterClassName, addLetterToWord}
 }
