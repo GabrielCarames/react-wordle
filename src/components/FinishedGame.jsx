@@ -8,22 +8,36 @@ export default function FinishedGame({finishedGame, setFinishedGame, winnerWord}
     const [statistics, setStatistics] = useState(JSON.parse(localStorage.getItem("statistics")) ? JSON.parse(localStorage.getItem("statistics")) : [{number: 0, text: "Partidas"}, {number: "0%", text: "Ganadas"}, {number: 0, text: "Racha"}, {number: 0, text: "Mejor Racha"}])
 
     useEffect(() => {
-        if(finishedGame.result === "win" && JSON.parse(localStorage.getItem("alreadyPlayed")).shouldPlay === true) {
-            const statisticsCopy = statistics
-            statisticsCopy[0].number += 1
-            statisticsCopy[2].number += 1
-            statisticsCopy[3].number += 1
-            statisticsCopy[1].number = `${Math.round(statisticsCopy[2].number / statisticsCopy[0].number * 100)}%`
-            localStorage.setItem("alreadyPlayed", JSON.stringify({shouldPlay: false, result: "win", winnerWord: winnerWord}))
-            localStorage.setItem("statistics", JSON.stringify(statisticsCopy))
-            setStatistics(statisticsCopy)
+        if(JSON.parse(localStorage.getItem("alreadyPlayed")).shouldPlay === true) {
+            const statisticsCopy = statistics 
+            switch (finishedGame.result) {
+                case "win":
+                    statisticsCopy[0].number += 1
+                    statisticsCopy[2].number += 1
+                    statisticsCopy[3].number += 1
+                    statisticsCopy[1].number = `${Math.round(statisticsCopy[2].number / statisticsCopy[0].number * 100)}%`
+                    localStorage.setItem("alreadyPlayed", JSON.stringify({shouldPlay: false, result: "win", winnerWord: winnerWord}))
+                    localStorage.setItem("statistics", JSON.stringify(statisticsCopy))
+                    setStatistics(statisticsCopy)
+                    break;
+                case "lose":
+                    statisticsCopy[0].number += 1
+                    statisticsCopy[3].number += statisticsCopy[2].number
+                    statisticsCopy[2].number = 0
+                    statisticsCopy[1].number = `${Math.round(statisticsCopy[2].number / statisticsCopy[0].number * 100)}%`
+                    localStorage.setItem("alreadyPlayed", JSON.stringify({shouldPlay: false, result: "lose", winnerWord: winnerWord}))
+                    localStorage.setItem("statistics", JSON.stringify(statisticsCopy))
+                    setStatistics(statisticsCopy)
+                    break;
+            }
         }
     }, [finishedGame])
 
     useEffect(() => {
         let count
+        let everySecond = 0
         if(JSON.parse(localStorage.getItem("alreadyPlayed")).shouldPlay === false) {
-                count = setInterval(() => {
+            count = setInterval(() => {
                 const date_future = new Date(new Date().getFullYear() +1, 0, 1)
                 const date_now = new Date()
                 let seconds = Math.floor((date_future - (date_now))/1000)
@@ -33,8 +47,9 @@ export default function FinishedGame({finishedGame, setFinishedGame, winnerWord}
                 hours = hours-(days*24)
                 minutes = minutes-(days*24*60)-(hours*60)
                 seconds = seconds-(days*24*60*60)-(hours*60*60)-(minutes*60)
+                everySecond = 1000
                 setTimeLeft([formatTime(hours), formatTime(minutes), formatTime(seconds)])
-            }, 1000)
+            }, everySecond)
         }
         return () => clearInterval(count)
     }, [])
@@ -49,7 +64,7 @@ export default function FinishedGame({finishedGame, setFinishedGame, winnerWord}
             <div className="modal">
                 <button className="close" onClick={() => setFinishedGame({...finishedGame, state: false})}><img className="close__icon" src={close} alt="Cerrar modal" /></button>
                 <div className={finishedGame.result || JSON.parse(localStorage.getItem("alreadyPlayed")).shouldPlay === false ? "header" : "header no-data"}>
-                    <h1 className="finished-game__title">¡Has {finishedGame.result === "win" || JSON.parse(localStorage.getItem("alreadyPlayed")).result ? "ganado" : "perdido"}!</h1>
+                    <h1 className="finished-game__title">¡Has {finishedGame.result === "win" || JSON.parse(localStorage.getItem("alreadyPlayed")).result === "win" ? "ganado" : "perdido"}!</h1>
                     <h2 className="finished-game__winner-word">La palabra era <span className="finished-game__winner-word--bold">{winnerWord.word}</span></h2>
                     <h2 className="finished-game__no-data">Juega para obtener más datos</h2>
                 </div>

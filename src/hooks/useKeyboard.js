@@ -1,10 +1,11 @@
 import { useEffect, useState } from "react"
+import {handleLetterStyle} from '../hooks/handleLetterStyle'
 
-export const useKeyboard = () => {
+export const useKeyboard = (insertedWords) => {
     const [currentKey, setCurrentKey] = useState([])
     const firstRow = ["q","w","e","r","t","y","u","i","o","p"]
     const secondRow = ["a","s","d","w","f","g","h","j","k","l","ñ"]
-    const thirdRow = ["enviar","z","x","c","v","b","n","m","borrar"]
+    const thirdRow = ["Enter","z","x","c","v","b","n","m","borrar"]
     const keyboard = [firstRow, secondRow, thirdRow]
     const keyboardTotalArray = firstRow.concat(secondRow).concat(thirdRow)
 
@@ -24,5 +25,19 @@ export const useKeyboard = () => {
         }, 500)
     }
 
-    return {keyboard, setCurrentKey}
+    const keyUsed = key => {
+        let letter = null
+        for(let i = 0; i < insertedWords.length; i++) {
+            const result = insertedWords[i].find(letter => letter.letter === key)
+            if(result) {
+                letter = result
+                break
+            }
+        }
+        if(letter) return handleLetterStyle(letter.bgColor)
+    }
+
+    const keyClicked = (key) => window.dispatchEvent(new KeyboardEvent('keydown', {'key': key}))
+
+    return {keyboard, setCurrentKey, keyUsed, keyClicked}
 }

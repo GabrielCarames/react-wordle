@@ -13,10 +13,10 @@
     color: $lightColor;
     background-color: $accentColor;
     z-index: 1;
-    animation: appear 5s;
+    animation: notificationAppear 5s;
 }
 
-@keyframes appear {
+@keyframes notificationAppear {
     0% {
         transform: translateY(-100px);
     }

@@ -1,23 +1,9 @@
-import { handleLetterStyle } from "../hooks/handleLetterStyle"
 import { useKeyboard } from "../hooks/useKeyboard"
 import deleteIcon from '../icons/delete.svg'
 
 export default function Keyboard({insertedWords}) {
-    const {keyboard} = useKeyboard()
-    const keyUsed = key => {
-        let letter = null
-        for(let i = 0; i < insertedWords.length; i++) {
-            const result = insertedWords[i].find(letter => letter.letter === key)
-            if(result) {
-                letter = result
-                break
-            }
-        }
-        if(letter) return handleLetterStyle(letter.bgColor)
-    }
-
-    const keyClicked = (key) => window.dispatchEvent(new KeyboardEvent('keydown', {'key': key}))
-
+    const {keyboard, keyUsed, keyClicked} = useKeyboard(insertedWords)
+    
     return (
         <div className="keyboard">
             {

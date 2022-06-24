@@ -13,7 +13,7 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
     const checkGameFinished = () => {
         if(words[currentWordIndex-1].every(letter => letter.bgColor === "green")) {
             setFinishedGame({result: "win", state: true})
-        }
+        } else if(currentWordIndex === 6) setFinishedGame({result: "lose", state: true})
     }
 
     useEffect(() => {
@@ -119,5 +119,5 @@ export const useWords = (currentWordIndex, setCurrentWordIndex, words, setWords,
         }, 0)
     }
 
-    return {handleLetterClassName, addLetterToWord}
+    return {handleLetterClassName}
 }
