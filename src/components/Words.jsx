@@ -11,7 +11,16 @@ export default function Words({
   winnerWord,
   setShowNotification
 }) {
-  const [currentWordIndex, setCurrentWordIndex] = useState(0)
+  const getSavedCurrentIndex = () => {
+    const words = JSON.parse(localStorage.getItem("words"))
+    if (!words) return
+    const currentIndex = words.findIndex(word => word[0].letter === "")
+    return currentIndex
+  }
+
+  const [currentWordIndex, setCurrentWordIndex] = useState(
+    getSavedCurrentIndex() ? getSavedCurrentIndex() : 0
+  )
   const wordsDivRef = useRef()
   const { handleLetterClassName } = useWords(
     currentWordIndex,
