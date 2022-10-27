@@ -1,7 +1,7 @@
 import { getWordList } from "../services"
 
 export const getWinnerWord = async setWinnerWord => {
-  const currentDay = new Date().getDay() + 2
+  const currentDay = new Date().getDay()
   const dailyWord = JSON.parse(localStorage.getItem("dailyWord"))
   if (!dailyWord || dailyWord.day !== currentDay) {
     const wordsList = await getWordList()

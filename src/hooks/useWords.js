@@ -113,10 +113,11 @@ export const useWords = (
     }, 200)
   }
 
-  const handleEnter = () => {
+  const handleEnter = async () => {
     setCurrentKey(["enviar"])
-    if (checkCurrentWordInWordList()) {
-      if (checkCurrentWordInWordList() === " ") shake("No hay suficientes letras.")
+    const foundWord = await checkCurrentWordInWordList()
+    if (foundWord) {
+      if (!foundWord) shake("No hay suficientes letras.")
       else successWord()
     } else shake("Palabra no encontrada en la lista.")
   }
@@ -141,9 +142,9 @@ export const useWords = (
 
   const checkCurrentWordInWordList = async () => {
     const wordToCheck = words[currentWordIndex].map(letter => letter.letter).join("")
-    let foundWord = " "
     const wordsList = await getWordList()
-    if (wordToCheck.length >= 1) foundWord = wordsList.find(word => word === wordToCheck)
+    if (wordToCheck.length <= 0) return
+    const foundWord = wordsList.find(word => word === wordToCheck)
     return foundWord
   }
 
