@@ -134,6 +134,7 @@ export const useWords = (
         winnerWordArray[winnerWordArray.indexOf(letter.letter)] = null
       } else currentLetterInWords.bgColor = "grey"
     })
+    localStorage.setItem("words", JSON.stringify(words))
     wordAnimation()
     const insertedWord = words[currentWordIndex].map(letter => letter)
     setInsertedWords([...insertedWords, insertedWord])

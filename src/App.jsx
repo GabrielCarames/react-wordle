@@ -12,50 +12,54 @@ function App() {
   const [instructions, setInstructions] = useState(false)
   const [insertedWords, setInsertedWords] = useState([])
   const [showNotification, setShowNotification] = useState({ state: false, message: "" })
-  const [words, setWords] = useState([
-    [
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" }
-    ],
-    [
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" }
-    ],
-    [
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" }
-    ],
-    [
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" }
-    ],
-    [
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" }
-    ],
-    [
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" },
-      { letter: "", bgColor: "white" }
-    ]
-  ])
+  const [words, setWords] = useState(
+    JSON.parse(localStorage.getItem("words"))
+      ? JSON.parse(localStorage.getItem("words"))
+      : [
+          [
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" }
+          ],
+          [
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" }
+          ],
+          [
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" }
+          ],
+          [
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" }
+          ],
+          [
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" }
+          ],
+          [
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" },
+            { letter: "", bgColor: "white" }
+          ]
+        ]
+  )
   const [winnerWord, setWinnerWord] = useState("")
   useMemo(() => getWinnerWord(setWinnerWord), [])
   useEffect(() => {
