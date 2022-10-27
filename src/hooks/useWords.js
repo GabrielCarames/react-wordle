@@ -58,7 +58,7 @@ export const useWords = (
               removeLetterFromWord(wordsCopy, currentLetterIndex)
               break
             default:
-              addLetterToWord(key, wordsCopy, currentLetterIndex)
+              addLetterToWord(key.toLowerCase(), wordsCopy, currentLetterIndex)
               break
           }
         }, 0)
